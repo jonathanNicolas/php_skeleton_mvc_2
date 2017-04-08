@@ -10,6 +10,22 @@ class AppController {
         return self::$instance;
     }
 
+    public function loadModel($model) {
+
+    }
+
+    public function render($file = null) {
+
+    }
+
+    public function beforeRender() {
+
+    }
+
+    protected function redirect($param) {
+
+    }
+
     public function coucou($id)
     {
         $query = 'SELECT * FROM articles WHERE id = '.$id;
