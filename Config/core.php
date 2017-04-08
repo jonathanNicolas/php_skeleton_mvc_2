@@ -9,9 +9,20 @@ require_once '../Src/router.php';
 
 class Core {
 
-	public function iniRouter() {
-		$router = new Router();
-	}
+    public $appController;
+    public $articlesController;
+    public $usersController;
+    public $database;
+    public $router;
+    public $dispatcher;
 
-
+    public function __construct()
+    {
+        $this->appController = AppController::getInstance();
+        $this->articlesController = ArticlesController::getInstance();
+        $this->usersController = UsersController::getInstance();
+        $this->database = Database::getInstance();
+        $this->router = new Router();
+        $this->dispatcher = new Dispatcher();
+    }
 }

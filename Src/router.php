@@ -1,22 +1,17 @@
 <?php
 
-include_once '../Controllers/AppController.php';
-
 class Router {
+
+    private $routes = array();
 
     function __construct()
     {
-        $tmp = new AppController();
-        $this->addRoute("/(articles)/([0-9]{1,6})", array("profile", "id"));
-        $this->addRoute("/(chloe)/(.*)", array("chloe", "id"));
+        $this->addRoute("/(articles)/(.*)/([0-9]{1,6})", array("controller", "method", "id"));
+        $this->addRoute("/(users)/(.*)/([0-9]{1,6})", array("controller", "method", "id"));
         $this->addRoute("/(.*)", array("catchall"));
         $tmp2 = $this->parse($_SERVER['REQUEST_URI']);
-        if (isset($tmp2["chloe"]))
-            $tmp->coucou($tmp2["id"]);
-        else
-            print_r($_SERVER['REQUEST_URI']);
+        Dispatcher::getInstance()->redirect($tmp2);
     }
-    private $routes = array(); 
 
     public function addRoute($pattern, $tokens = array()) {
         $this->routes[] = array(
@@ -26,7 +21,6 @@ class Router {
     }
 
     public function parse($url) {
-
         $tokens = array();
         foreach ($this->routes as $route) {
             preg_match("@^" . $route['pattern'] . "$@", $url, $matches);
