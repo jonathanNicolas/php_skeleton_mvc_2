@@ -7,12 +7,12 @@ class Router {
     function __construct()
     {
         $tmp = new AppController();
-        $this->addRoute("/PHP_Rush_MVC_Bis/toto/(articles)/([0-9]{1,6})", array("profile", "id"));
-        $this->addRoute("/PHP_Rush_MVC_Bis/toto/(chloe)/(.*)", array("chloe", "id"));
-        $this->addRoute("/PHP_Rush_MVC_Bis/toto/(.*)", array("catchall"));
+        $this->addRoute("/(articles)/([0-9]{1,6})", array("profile", "id"));
+        $this->addRoute("/(chloe)/(.*)", array("chloe", "id"));
+        $this->addRoute("/(.*)", array("catchall"));
         $tmp2 = $this->parse($_SERVER['REQUEST_URI']);
-        if (isset($tmp2["catchall"]))
-            $tmp->coucou(1);
+        if (isset($tmp2["chloe"]))
+            $tmp->coucou($tmp2["id"]);
         else
             print_r($_SERVER['REQUEST_URI']);
     }
